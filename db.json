@@ -1,22 +1,16 @@
 {
   "books": [
     {
-      "id": "ca66d740-e41d-4b70-aea1-a8a20759a647",
-      "name": "The Lion, the Witch and the Wardrobe",
-      "earnings": "85000000",
-      "description": ""
+      "id": "d67617c1-02d2-41ea-9625-56302b67c739",
+      "name": "The Lion, the Witch, and the Wardrobe",
+      "earnings": "2000000",
+      "description": "horray"
     },
     {
-      "id": "408c6851-7b7a-439e-b6db-9fb65ea61071",
-      "name": "The Adventures of Pinocchio",
-      "earnings": "85000000",
-      "description": ""
-    },
-    {
-      "id": "3fe92243-8444-4ee4-bb39-b5460b8919f1",
-      "name": "The Hobbit",
-      "earnings": "100000000",
-      "description": null
+      "id": "66d89f7a-5da3-468b-a867-172147129598",
+      "name": "Harry Potter",
+      "earnings": "10000000",
+      "description": "go harry"
     }
   ]
 }

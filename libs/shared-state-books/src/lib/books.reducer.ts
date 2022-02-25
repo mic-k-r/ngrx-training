@@ -10,3 +10,73 @@ const updateBook = (books: BookModel[], changes: BookModel) =>
   });
 const deleteBook = (books: BookModel[], bookId: string) =>
   books.filter((book) => bookId !== book.id);
+
+  export interface State {
+    collection: BookModel[];
+    activeBookId: string | null;
+  }
+
+  export const initialState: State = {
+    collection: [],
+    activeBookId: null,
+  };
+
+  export const reducer = createReducer(
+    initialState,
+    on(BooksPageActions.clearSelectedBook, BooksPageActions.enter, (state) => {
+      return {
+        ...state,
+        activeBookId: null,
+      };
+    }),
+    on(BooksPageActions.selectBook, (state, action) => {
+      return {
+        ...state,
+        activeBookId: action.bookId,
+      };
+    }),
+    on(BooksApiActions.booksLoaded, (state, action) => {
+      return {
+        ...state,
+        collection: action.books,
+      };
+    }),
+    on(BooksApiActions.bookCreated, (state, action) => {
+      return {
+        collection: createBook(state.collection, action.book),
+        activeBookId: null,
+      };
+    }),
+    on(BooksApiActions.bookUpdated, (state, action) => {
+      return {
+        collection: updateBook(state.collection, action.book),
+        activeBookId: null,
+      };
+    }),
+    on(BooksApiActions.bookDeleted, (state, action) => {
+      return {
+        ...state,
+        collection: deleteBook(state.collection, action.bookId),
+      };
+    })
+  );
+
+  export const selectAll = (state:State) => state.collection;
+  export const selectActiveBookId = (state: State) => state.activeBookId;
+  // export const selectActiveBook_bad_performance = (state: State) => {
+  //   const books = selectAll(state);
+  //   const activeBookId = selectActiveBookId(state);
+
+  //   return books.find((book) => book.id === activeBookId) || null;
+  // }
+  export const selectActiveBook = createSelector(
+    selectAll,
+    selectActiveBookId,
+    (books, activeBookId) => {
+      return books.find((book) => book.id === activeBookId) || null;
+    }
+  );
+  export const selectEarningsTotals = createSelector(
+    selectAll,
+    calculateBooksGrossEarnings
+  );
